@@ -15,7 +15,7 @@ export default async function VedasPage() {
     
     return (
         <main className="">
-        {content}
+        {}
         </main>
     );
     }

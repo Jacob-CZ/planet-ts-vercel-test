@@ -118,7 +118,7 @@ export default function Page({params}: {params: {sessionId : string}}) {
 
   return (
     <main className="w-screen bg-slate-500 h-screen top-0 left-0 fixed flex justify-center">
-      <video className=' h-fit w-full' ref={remoteVideoRef} />
+      <video className=' h-full w-fit' ref={remoteVideoRef} />
       <button className=' left-0 bottom-0 bg-slate-600 fixed m-5 p-4 rounded-full' onClick={initiate_call}>Call</button>
         <video ref={currentUserVideoRef} className='fixed top-4 right-5 h-1/5 w-fit bg-black rounded-3xl'/>
       <div className='fixed bottom-2.5 w-54 h-16 bg-orange-400 rounded-full flex flex-row items-center justify-between'>

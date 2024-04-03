@@ -3,7 +3,7 @@ import { createClient } from "@/src/lib/supabase/client"
 
 export default function Page(){
     const supabase = createClient()
-    const channel = supabase.getChannel('messages')
+    const channel = supabase.channel('messages')
     async function handleIce(peerconnection: RTCPeerConnection) {
         peerconnection.onicecandidate = (event) => {
             if (event.candidate) {
@@ -18,9 +18,6 @@ export default function Page(){
                     ])
                     .then(() => {
                         console.log('ice sent')
-                    })
-                    .catch((error) => {
-                        console.error('error', error)
                     })
             }
         }
