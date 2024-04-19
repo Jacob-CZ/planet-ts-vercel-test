@@ -1,17 +1,34 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import styled from 'styled-components';
-
-
+import { ImMenu } from "react-icons/im";
 export default function NavBar({ children }: { children: ReactNode }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  let timeoutId: string | number | NodeJS.Timeout | null | undefined = null;
+
+  useEffect(() => {
+    const handleMouseMove = () => {
+      setIsVisible(true);
+      if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+      timeoutId = setTimeout(() => setIsVisible(false), 1000);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
     <Container>
-      <Button
+      <Button isVisible={isVisible}
         className={isHovered ? "hovered" : ""}
         onMouseEnter={() => setIsHovered(true)}
-      ></Button>
+      ><ImMenu size={28}/></Button>
       <Main
         className={isHovered ? "hovered" : ""}
         onMouseEnter={() => setIsHovered(false)}
@@ -39,18 +56,19 @@ const Container = styled.div`
 const Main = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: lightgreen;
+    background-color: #635C51;
     transition: transform 0.5s;
     z-index: 5;
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 25px 25px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: none;
     overflow: hidden;
     transition: all ease-in-out 0.5s;
     &.hovered {
         transform: translate(-10%, -10%);
         border-bottom-right-radius: 100px;
+        box-shadow: 25px 25px 20px rgba(0, 0, 0, 0.5);
         transition: all ease-in-out 0.5s;
     }
 `;
@@ -75,7 +93,10 @@ const HorizontalMenu = styled.div`
     z-index: 1;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isVisible: boolean }>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 10vh;
     right: 10vh;
@@ -85,6 +106,7 @@ const Button = styled.button`
     background-color: #21420d90;
     z-index: 100;
     transition: all ease-in-out 0.5s;
+    opacity: ${(props: { isVisible: boolean }) => (props.isVisible ? 0.5 : 0)};
 
     &:hover {
         background-color: red;

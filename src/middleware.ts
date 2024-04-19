@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from './lib/supabase/middleware'
-import { cn } from '@/lib/utils'
 const user_regex = new RegExp(/\/((user.*)|(online.*))/)
 const admin_redex = new RegExp(/\/admin.*/)
 const doctor_redex = new RegExp(/\/doctor.*/)
@@ -31,9 +30,9 @@ export async function middleware(request: NextRequest) {
     console.log("match")
     return NextResponse.redirect(new URL('/error', request.url), 307)
   }
-  // if (doctor_redex.test(pathname) && !acces_lvl.includes("doctor")) {
-  //   return NextResponse.redirect(new URL('/error', request.url), 307)
-  // }
+  if (doctor_redex.test(pathname) && !acces_lvl.includes("doctor")) {
+    return NextResponse.redirect(new URL('/error', request.url), 307)
+  }
   if (doctor_redex.test(pathname) && !acces_lvl.includes("user")) {
     return NextResponse.redirect(new URL('/error', request.url), 307)
   }
@@ -43,6 +42,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
   ],
 }
