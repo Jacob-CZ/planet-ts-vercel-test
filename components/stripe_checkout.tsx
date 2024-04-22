@@ -30,7 +30,7 @@ export default function StripeCheckout(props: {total?: number, products: Product
     }
     , [activated])
     async function getIntent(){
-        Cookies.set('cart', JSON.stringify({amount: 5}))
+        Cookies.set('cart', JSON.stringify({amount: 20}))
         const cart = Cookies.get('cart')
         let cartJson : any;
         if(!cart && !props.total){
