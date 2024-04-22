@@ -32,17 +32,17 @@ export default function CheckoutForm() {
       setMessage("An unexpected error occured.");
     }
 
-    setIsProcessing(false);
+    setIsProcessing(false); 
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isProcessing || !stripe || !elements} id="submit">
+      <button className=" bg-green-300 p-6 rounded-full m-4" disabled={isProcessing || !stripe || !elements} id="submit">
         <span id="button-text">
           {isProcessing ? "Processing ... " : "Pay now"}
         </span>
-      </button>
+      </button >
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
