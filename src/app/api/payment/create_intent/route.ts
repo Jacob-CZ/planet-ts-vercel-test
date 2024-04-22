@@ -15,8 +15,7 @@ export async function POST(req: NextRequest) {
       automatic_payment_methods: {
         enabled: true,
         },
-      customer: "cus_PyGs73j868r6oD",
-      receipt_email: "hladikjakubis@gmail.com"
+      customer: "cus_PyLbaFRkP8HshJ",
     });
 
     return new NextResponse(paymentIntent.client_secret, { status: 200 });
