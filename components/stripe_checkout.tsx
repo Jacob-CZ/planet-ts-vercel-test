@@ -4,9 +4,11 @@ import Cookies from 'js-cookie';
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-export default function StripeCheckout(props: {activated: boolean, total?: number}){
+import { Product } from "./types";
+export default function StripeCheckout(props: {total?: number, products: Product[]}){
     const [clientSecret, setClientSecret] = useState<string | null>(null)
     const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
+    const [activated, setActivated] = useState<boolean>(false)
     useEffect(() => {
         async function getPromise(){
             await fetch('/api/payment/get_key', {
@@ -21,12 +23,12 @@ export default function StripeCheckout(props: {activated: boolean, total?: numbe
         getPromise()
     }, [])
     useEffect(() => {
-        if(props.activated){
+        if(activated){
             console.log('activated')
             getIntent()
         }
     }
-    , [props.activated])
+    , [activated])
     async function getIntent(){
         Cookies.set('cart', JSON.stringify({amount: 1400}))
         const cart = Cookies.get('cart')
@@ -57,12 +59,23 @@ export default function StripeCheckout(props: {activated: boolean, total?: numbe
             console.log(err)
         })
     }
+    function initiateCheckout(){
+        setActivated(true)
+    }
+
     return (
         <>
-        {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CheckoutForm />
-        </Elements>)}
+        <button onClick={initiateCheckout}>Pay</button>
+        {clientSecret && stripePromise && props.products && activated &&(
+            <div className=" w-screen h-screen pointer-events-[all] bg-[#00000000] top-0 left-0 fixed flex justify-center items-center "> 
+                <div className="w-3/4 h-3/4 bg-slate-600 rounded-3xl p-6">  
+                    <button className=" w-fit p-4 bg-green-50 rounded-3xl mb-6 active:bg-red-700" onClick={() => setActivated(false)}>close</button>
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                        <CheckoutForm />
+                    </Elements>
+                </div>
+            </div>
+            )}
         </>
     )
 }
