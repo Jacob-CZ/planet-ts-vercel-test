@@ -44,7 +44,7 @@ export default function LoginPage() {
 
         const {data, error} = await supabase.auth.signUp({
             email: Data.get('email') as string,
-            password: Data.get('pahssword') as string
+            password: Data.get('password') as string
         })
         if (error){
             console.error(error)

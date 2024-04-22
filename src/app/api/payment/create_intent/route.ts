@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
       automatic_payment_methods: {
         enabled: true,
         },
+      customer: "cus_PyGs73j868r6oD",
     });
 
     return new NextResponse(paymentIntent.client_secret, { status: 200 });

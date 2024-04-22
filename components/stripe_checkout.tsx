@@ -68,7 +68,7 @@ export default function StripeCheckout(props: {total?: number, products: Product
         <button className=" bg-red-700 p-8 rounded-3xl" onClick={initiateCheckout}>Pay</button>
         {clientSecret && stripePromise && props.products && activated &&(
             <div className=" w-screen h-screen pointer-events-[all] bg-[#00000000] top-0 left-0 fixed flex justify-center items-center "> 
-                <div className="w-3/4 h-3/4 bg-slate-600 rounded-3xl p-6">  
+                <div className="w-3/4 h-3/4 backdrop-blur-lg rounded-3xl p-6">  
                     <button className=" w-fit p-4 bg-green-50 rounded-3xl mb-6 active:bg-red-700" onClick={() => setActivated(false)}>close</button>
                     <Elements stripe={stripePromise} options={{ clientSecret }}>
                         <CheckoutForm />
