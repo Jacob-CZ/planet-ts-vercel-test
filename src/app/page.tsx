@@ -4,13 +4,14 @@ import { createClient } from "../lib/supabase/server";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import StripeCheckout from "@/components/stripe_checkout";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Product } from "@/components/types";
 import Cookies from 'js-cookie';
 import { Input } from "@/components/ui/input";
 import Login from "@/components/login";
 export default function Home() {
   const [activated, setActivated] = useState<boolean>(false)
+  const [adresses, setAdresses] = useState<any[]>([])
   const product:Product = {
     id: 1,
     name: "Veda",
@@ -21,6 +22,19 @@ export default function Home() {
   const setcookie = (amount:number) => {
     Cookies.set('cart', JSON.stringify({amount: amount}))
   }
+  useEffect(() => {
+
+  }, [])
+  const tryAdress = async (adress:string) => {
+    var requestOptions = {
+      method: 'GET',
+    };
+    
+    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${adress}&lang=cs&fliter=countrycode:auto&result_type=building&apiKey=ad212d62c2094206a8b5d8da0e586442`, requestOptions)
+      .then(response => response.json())
+      .then(result => {setAdresses(result.features); console.log(result)})
+      .catch(error => console.log('error', error));
+  }
 
   return (
     <main className="grid gap-4 p-5">
@@ -29,6 +43,12 @@ export default function Home() {
         <Link href="/vedas" className="w-fit"><Button>Vedas</Button></Link>
         <Link href="/store" className="w-fit"><Button>Store</Button></Link>
         <Link href="/error" className="w-fit"><Button>Error</Button></Link>
+        <Input placeholder="search"
+        onChange={(e) => tryAdress(e.target.value)}
+        />
+        {adresses && adresses.map((adress, index) => {
+          return <p key={index}>{adress.properties.formatted}</p>
+        })}
         <div className=" w-1/2"> 
         <Input type="number" onChange={(e) => setcookie(Number(e.target.value))} placeholder="amount"/>
         <StripeCheckout products={[product]}/>
