@@ -7,16 +7,22 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!,{
 export async function POST(req: NextRequest) {
   const { amount, user } = await req.json();
   console.log(amount)
+  
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntentData: Stripe.PaymentIntentCreateParams = {
       amount: Number(amount) * 100,
       currency: "CZK",
       description: "test payment intent",
       automatic_payment_methods: {
         enabled: true,
-        },
-      customer: String(user),
-    });
+      },
+    };
+
+    if (user) {
+      paymentIntentData.customer = String(user);
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
 
     return new NextResponse(paymentIntent.client_secret, { status: 200 });
   } catch (error: any) {
