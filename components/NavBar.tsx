@@ -63,7 +63,7 @@ const Main = styled.div`
     top: 0;
     left: 0;
     box-shadow: none;
-    overflow: hidden;
+    overflow: auto;
     transition: all ease-in-out 0.5s;
     &.hovered {
         transform: translate(-10%, -10%);

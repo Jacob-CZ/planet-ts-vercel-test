@@ -115,6 +115,7 @@ export default function Page({params}:{ params: { uid: string } }) {
                 />
             <Button onClick={updateUser}>Save</Button>
             <p>{error}</p>
+
         </div>
     )
 }   
