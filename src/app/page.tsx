@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Product } from "@/components/types";
 import Cookies from 'js-cookie';
 import { Input } from "@/components/ui/input";
+import Login from "@/components/login";
 export default function Home() {
   const [activated, setActivated] = useState<boolean>(false)
   const product:Product = {
@@ -32,6 +33,7 @@ export default function Home() {
         <Input type="number" onChange={(e) => setcookie(Number(e.target.value))} placeholder="amount"/>
         <StripeCheckout products={[product]}/>
         <Button onClick={() => setActivated(true)}>{activated  ? "activated"  : "not activated"}</Button>
+        <Login visible/>
         </div>
     </main>
   );

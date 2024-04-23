@@ -114,7 +114,7 @@ export default function LoginPage() {
       <label htmlFor="password">Password:</label>
       <Input className=" text-stone-900 max-w-96" id="password" name="password" type="password" required placeholder="password"  />
       <Button formAction={login}>Log in</Button>
-      <Button className=" bg-green-600" formAction={signup}>Sign up</Button>
+      <Button  formAction={signup}>Sign up</Button>
       <p>{error}</p>
     </form>
     <Button onClick={() => setResetpassword(!resetpassword)}>Reset Password</Button>
