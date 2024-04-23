@@ -10,6 +10,7 @@ const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!
 )
 let data3 = {};
+let data4 = {};
 export async function POST(req:NextRequest){
     const data  = await req.json()
     const data2 = await stripe.customers.create({
@@ -21,9 +22,9 @@ export async function POST(req:NextRequest){
     const { error}  = await supabase.auth.admin.updateUserById(data.id, {user_metadata: {stripe_id: data2.id}})
 
     data3 = data2
-    if(error) data3 = {error: error.message}
+    if(error) data4 = {error: error.message}
     return NextResponse.json({message: "success"})
 }
 export function GET(req:NextRequest){
-    return NextResponse.json(data3)
+    return NextResponse.json({data3,data4})
 }
