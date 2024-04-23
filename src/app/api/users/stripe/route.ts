@@ -19,8 +19,9 @@ export async function POST(req:NextRequest){
         address: data.address
     })
     const { error}  = await supabase.auth.admin.updateUserById(data.id, {user_metadata: {stripe_id: data2.id}})
-    if(error) data3 = {error: error.message}
+
     data3 = data2
+    if(error) data3 = {error: error.message}
     return NextResponse.json({message: "success"})
 }
 export function GET(req:NextRequest){
