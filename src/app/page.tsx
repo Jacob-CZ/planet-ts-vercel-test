@@ -33,7 +33,7 @@ export default function Home() {
         <Input type="number" onChange={(e) => setcookie(Number(e.target.value))} placeholder="amount"/>
         <StripeCheckout products={[product]}/>
         <Button onClick={() => setActivated(true)}>{activated  ? "activated"  : "not activated"}</Button>
-        <Login visible/>
+        <Login classname=""/>
         </div>
     </main>
   );

@@ -5,22 +5,16 @@ import { User, UserResponse } from "@supabase/supabase-js"
 import { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { FaGoogle } from "react-icons/fa";
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import Linktree from "@/components/Linktree"
-export default function Login(props: { visible: boolean }) {
+import { cn } from "@/lib/utils"
+export default function Login(props: { visible?: boolean, classname?: string}) {
 	const [resetpassword, setResetpassword] = useState(false)
 	const [user, setUser] = useState<User | null>(null)
 	const [error, setError] = useState<string | null>(null)
+	const [visible, setVisible] = useState<boolean>(false)
 	const supabase = createClient()
+	useEffect(() => {
+		if (props.visible) setVisible(props.visible)
+	}, [props.visible])
 	async function login(Data: FormData) {
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email: Data.get("email") as string,
@@ -100,7 +94,10 @@ export default function Login(props: { visible: boolean }) {
 
 	return (
 		<>
-		{props.visible && (
+		<div onClick={() => setVisible(!visible)} className={cn(props.classname, "")}> 
+			<img src={user?.user_metadata.avatar_url} alt="fuck" />
+		</div>
+		{visible && (
 		<div className="fixed w-screen h-screen pointer-events-[all] bg-[#ffffff3b] flex items-center justify-center top-0 left-0 z-50">
 			<div className="p-12 border-4 rounded-3xl backdrop-blur-xl border-[#4D956D]">
 				{user?.email && (
