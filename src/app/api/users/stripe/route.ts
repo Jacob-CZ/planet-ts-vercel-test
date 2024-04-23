@@ -12,7 +12,9 @@ const supabase = createClient(
 let data3 = {};
 let data4 = {};
 export async function POST(req:NextRequest){
-    const data  = await req.json()
+    let data  = await req.json()
+    data = data.record
+
     const data2 = await stripe.customers.create({
         email: data.email,
         name: data.name,
