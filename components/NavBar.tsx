@@ -56,7 +56,7 @@ const Container = styled.div`
 const Main = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #635C51;
+    background-color: #FCFBE4;
     transition: transform 0.5s;
     z-index: 5;
     position: absolute;

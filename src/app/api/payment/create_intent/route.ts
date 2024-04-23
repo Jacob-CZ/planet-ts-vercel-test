@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!,{
     typescript: true
 });
 export async function POST(req: NextRequest) {
-  const { amount } = await req.json();
+  const { amount, user } = await req.json();
   console.log(amount)
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       automatic_payment_methods: {
         enabled: true,
         },
-      customer: "cus_PyLbaFRkP8HshJ",
+      customer: String(user),
     });
 
     return new NextResponse(paymentIntent.client_secret, { status: 200 });
