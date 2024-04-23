@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { FaGoogle } from "react-icons/fa";
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 export default function Login(props: { visible?: boolean, classname?: string}) {
 	const [resetpassword, setResetpassword] = useState(false)
 	const [user, setUser] = useState<User | null>(null)
@@ -94,12 +95,14 @@ export default function Login(props: { visible?: boolean, classname?: string}) {
 
 	return (
 		<>
-		<div onClick={() => setVisible(!visible)} className={cn(props.classname, "")}> 
-			<img src={user?.user_metadata.avatar_url} alt="fuck" />
+		<div onClick={() => setVisible(!visible)} className={cn(props.classname, "rounded-full overflow-hidden flex items-center justify-center w-fit h-fit")}> 
+		{!user?.email && <Button className="">Log in</ Button>}
+		{user?.email && <Image height={50} width={50} src={user?.user_metadata.avatar_url || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="" />}
 		</div>
 		{visible && (
 		<div className="fixed w-screen h-screen pointer-events-[all] bg-[#ffffff3b] flex items-center justify-center top-0 left-0 z-50">
 			<div className="p-12 border-4 rounded-3xl backdrop-blur-xl border-[#4D956D]">
+			<Button className="absolute top-4 right-4 rounded-full w-8 h-8" onClick={() => setVisible(false)}>X</Button>
 				{user?.email && (
 					<div>
 						Logged in as {user?.email}

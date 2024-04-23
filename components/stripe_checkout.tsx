@@ -64,7 +64,12 @@ export default function StripeCheckout(props: {total?: number, products: Product
 
     return (
         <>
-        <button className=" bg-red-700 p-8 rounded-3xl" onClick={initiateCheckout}>Pay</button>
+        <button 
+            className="w-fit p-2 bg-[#FCFBE4] border-[#4D956D] border-4 rounded-2xl m-2 font-[nazare-exuberant] text-md font-semibold text-[#4D956D] hover:text-[#FCFBE4] hover:bg-[#4D956D] active:bg-[#D4FCC3] active:text-[#4D956D] " 
+            onClick={initiateCheckout}
+            >
+            Pay
+        </button>
         {clientSecret && stripePromise && props.products && activated &&(
             <div className=" w-screen h-screen pointer-events-[all] bg-[#00000000] top-0 left-0 fixed flex justify-center items-center "> 
                 <div className="w-3/4 h-3/4 backdrop-blur-lg rounded-3xl p-6">  
