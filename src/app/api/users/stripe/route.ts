@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 let user = {}
-export function POST(req:NextRequest){
-    const data  = req.json()
+export async function POST(req:NextRequest){
+    const data  = await req.json()
     user = data
     return NextResponse.json({message: "success"})
 }
