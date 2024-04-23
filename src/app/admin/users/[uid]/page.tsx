@@ -70,7 +70,7 @@ export default function Page({params}:{ params: { uid: string } }) {
                 })}
             />
             <p>Role</p>
-            <Select value={user?.user_metadata.role} onValueChange={(value) => setUser(
+            <Select value={user?.user_metadata.role} onValueChange={(value:any) => setUser(
                 {...user,
                     user_metadata: {
                         ...user.user_metadata,

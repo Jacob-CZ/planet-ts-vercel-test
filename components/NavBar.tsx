@@ -28,7 +28,7 @@ export default function NavBar({ children }: { children: ReactNode }) {
       <Button isVisible={isVisible}
         className={isHovered ? "hovered" : ""}
         onMouseEnter={() => setIsHovered(true)}
-      ><ImMenu size={28}/></Button>
+      ><ImMenu size={28} color={isHovered? "#4D956D":"#FCFBE4"}/></Button>
       <Main
         className={isHovered ? "hovered" : ""}
         onMouseEnter={() => setIsHovered(false)}
@@ -50,7 +50,7 @@ const Container = styled.div`
     left: 0;
     width: 100vw;  
     height: 100vh;
-    background-color: lightblue;
+    background-color: #D58C44;
 `;
 
 const Main = styled.div`
@@ -79,7 +79,7 @@ const VerticalMenu = styled.div`
     right: 0;
     width: 10%;
     height: 100%;
-    background-color: lightblue;
+    background-color: #D58C44;
     z-index: 1;
 `;
 
@@ -89,7 +89,7 @@ const HorizontalMenu = styled.div`
     left:0;
     width: 90%;
     height: 10%;
-    background-color: lightblue;
+    background-color: #D58C44;
     z-index: 1;
 `;
 
@@ -103,13 +103,14 @@ const Button = styled.button<{ isVisible: boolean }>`
     width: 10vh;
     height: 10vh;
     border-radius: 100%;
-    background-color: #21420d90;
+    background-color: #4D956D ;
     z-index: 100;
     transition: all ease-in-out 0.5s;
     opacity: ${(props: { isVisible: boolean }) => (props.isVisible ? 0.5 : 0)};
 
     &:hover {
-        background-color: red;
+        transition: all ease-in-out 0.5s;
+        background-color: #FCFBE4;
     }
 
     &.hovered {
