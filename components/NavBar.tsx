@@ -25,7 +25,7 @@ export default function NavBar({ children }: { children: ReactNode }) {
 
   return (
     <Container>
-      <Button isVisible={isVisible}
+      <Button $isVisible={isVisible}
         className={isHovered ? "hovered" : ""}
         onMouseEnter={() => setIsHovered(true)}
       ><ImMenu size={28} color={isHovered? "#4D956D":"#FCFBE4"}/></Button>
@@ -93,7 +93,7 @@ const HorizontalMenu = styled.div`
     z-index: 1;
 `;
 
-const Button = styled.button<{ isVisible: boolean }>`
+const Button = styled.button<{ $isVisible: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,7 +106,7 @@ const Button = styled.button<{ isVisible: boolean }>`
     background-color: #4D956D ;
     z-index: 100;
     transition: all ease-in-out 0.5s;
-    opacity: ${(props: { isVisible: boolean }) => (props.isVisible ? 0.5 : 0)};
+    opacity: ${(props: { $isVisible: boolean }) => (props.$isVisible ? 0.5 : 0)};
 
     &:hover {
         transition: all ease-in-out 0.5s;

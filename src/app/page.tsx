@@ -9,6 +9,8 @@ import { Product } from "@/components/types";
 import Cookies from 'js-cookie';
 import { Input } from "@/components/ui/input";
 import Login from "@/components/login";
+import Script from "next/script";
+import ReportError from "../lib/error/report";
 export default function Home() {
   const [activated, setActivated] = useState<boolean>(false)
   const [adresses, setAdresses] = useState<any[]>([])
@@ -22,18 +24,15 @@ export default function Home() {
   const setcookie = (amount:number) => {
     Cookies.set('cart', JSON.stringify({amount: amount}))
   }
-  useEffect(() => {
-
-  }, [])
   const tryAdress = async (adress:string) => {
     var requestOptions = {
       method: 'GET',
     };
     
-    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${adress}&lang=cs&fliter=countrycode:auto&result_type=building&apiKey=ad212d62c2094206a8b5d8da0e586442`, requestOptions)
+    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${adress}&apiKey=ad212d62c2094206a8b5d8da0e586442`, requestOptions)
       .then(response => response.json())
       .then(result => {setAdresses(result.features); console.log(result)})
-      .catch(error => console.log('error', error));
+      .catch(error => reportError(error));
   }
 
   return (
