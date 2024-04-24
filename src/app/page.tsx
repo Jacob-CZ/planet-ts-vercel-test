@@ -34,6 +34,9 @@ export default function Home() {
       .then(result => {setAdresses(result.features); console.log(result)})
       .catch(error => reportError(error));
   }
+  useEffect(() => {
+    ReportError("error")
+  }, [])
 
   return (
     <main className="grid gap-4 p-5">
@@ -53,6 +56,9 @@ export default function Home() {
         <StripeCheckout products={[product]}/>
         <Button onClick={() => setActivated(true)}>{activated  ? "activated"  : "not activated"}</Button>
         <Login classname=""/>
+        </div>
+        <div className="h-[800vh]">
+
         </div>
     </main>
   );
