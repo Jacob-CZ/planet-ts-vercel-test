@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { ImMenu } from "react-icons/im";
-
+import BubbleBackground from "./bubbleBG";
 export default function NavBar({ children }: { children: ReactNode }) {
   return (
     <>
@@ -10,7 +10,9 @@ export default function NavBar({ children }: { children: ReactNode }) {
         <ImMenu size={28}/>
       </button>
       <div className="peer fixed w-screen h-screen overflow-hidden bg-orange-400 z-[-10]">
-
+        <BubbleBackground>
+          <h1>Home</h1>
+        </BubbleBackground>
       </div>
       <div
         className="fixed top-0 bg-[#FCFBE4] w-screen h-screen overflow-y-auto duration-700 peer-hover:-translate-x-[10vw] peer-hover:-translate-y-[10vh] peer-hover:rounded-[5vh] peer-hover:overflow-hidden"
