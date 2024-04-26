@@ -34,7 +34,7 @@ export default function Page() {
             
             {slides &&
                 slides.map((slide, index) => (
-                    <div key={index} className=" w-1/2 border-4 rounded-3xl p-8 m-4">
+                    <div key={index} className=" w-1/2 border-4 rounded-3xl p-8 m-4 min-w-[600px]">
                         <h1 className="text-3xl mb-8">{slide.title}</h1>
                         <p className="text-left max-w-full overflow-clip">{slide.content}</p>
                     </div>
