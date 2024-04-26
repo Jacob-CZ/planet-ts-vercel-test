@@ -1,6 +1,6 @@
 
 export default async function ReportError(ReportedError: any) {
-    if(!ReportedError) return
+    if(!ReportedError || ReportedError === "" || ReportedError === null) return
   if(process.env.ENV === 'development') console.error(ReportedError)
   const {message, error} = await fetch('/api/error', {
     method: 'POST',
@@ -8,7 +8,7 @@ export default async function ReportError(ReportedError: any) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({error: ReportedError})
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(error => console.error(error));
   if (error) console.error(error);
     return message
 }

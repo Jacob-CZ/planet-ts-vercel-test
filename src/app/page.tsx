@@ -35,9 +35,28 @@ export default function Home() {
       .catch(error => reportError(error));
   }
   useEffect(() => {
-    ReportError("error")
   }, [])
-
+  function Search(){
+    const [results, setResults] = useState<string>('')
+    const [search, setSearch] = useState<string>('')
+    const VectorSearch = () => {
+      if(search.length < 3) return
+      fetch("/api/documents/query", {
+        method: "POST",
+        body: JSON.stringify({text: search})
+      }).then((response) => response.json())
+      .then((data) => {
+        setResults(data)
+        console.log(data)
+      }
+      )}
+      useEffect(() => {
+        VectorSearch()
+      }, [search])
+    return (
+      <Input placeholder="search" onChange={(e) => setSearch(e.target.value)}/>
+    ) 
+  }
   return (
     <main className="grid gap-4 p-5">
         <Link href="/auth/login" className="w-fit"><Button>Login</Button></Link>
@@ -45,6 +64,7 @@ export default function Home() {
         <Link href="/vedas" className="w-fit"><Button>Vedas</Button></Link>
         <Link href="/store" className="w-fit"><Button>Store</Button></Link>
         <Link href="/error" className="w-fit"><Button>Error</Button></Link>
+        <Link href="/admin/products" className="w-fit"><Button>products</Button></Link>
         <Input placeholder="search"
         onChange={(e) => tryAdress(e.target.value)}
         />
@@ -56,6 +76,7 @@ export default function Home() {
         <StripeCheckout products={[product]}/>
         <Button onClick={() => setActivated(true)}>{activated  ? "activated"  : "not activated"}</Button>
         <Login classname=""/>
+        <Search/>
         </div>
         <div className="h-[800vh]">
 
