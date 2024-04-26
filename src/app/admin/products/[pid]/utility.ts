@@ -8,6 +8,7 @@ export async function getProduct(id: string) {
         .select()
         .match({ id })
     ReportError(error)
+    console.log(error)
     if (!data) return []
     return data[0]
 }
@@ -19,8 +20,11 @@ export async function updateProduct(product: any) {
     ReportError(error)
 }
 export async function uploadProductImage(id: string, file: FormData) {
-    const {error} = await supabase.storage.from("product_images").upload(id, file)
-    console.log(error)
+    const {error, data} = await supabase.storage.from("product_images").update(id, file)
+    if (error) {
+        const { data, error } = await supabase.storage.from("product_images").upload(id, file)
+        ReportError(error)
+    }
     ReportError(error)
 
 }
