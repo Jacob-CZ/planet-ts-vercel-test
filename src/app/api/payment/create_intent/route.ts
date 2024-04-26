@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 })
 export async function POST(req: NextRequest) {
 	const { amount, user } = await req.json()
+	if(amount === undefined || amount === null || amount === 0) ReportError(new Error('Amount is not defined'))
 
 	try {
 		const paymentIntentData: Stripe.PaymentIntentCreateParams = {
